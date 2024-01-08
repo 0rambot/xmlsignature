@@ -1,0 +1,16 @@
+<Signature>
+    <SignedInfo>
+        <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></CanonicalizationMethod>
+        <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"></SignatureMethod>
+        <Reference URI="">
+            <Transforms>
+                <Transform Algorithm=""></Transform>
+            </Transforms>
+            <DigestMethod>
+                <Algorithm></Algorithm>
+            </DigestMethod>
+            <DigestValue></DigestValue>
+        </Reference>
+    </SignedInfo>
+    <SignatureValue>q+3UBV3//FRFSnClYly7esYSdW6DTaRHkANtJq0+VnT7OCYefmnRb+Oh/+2+7aBqxs3sv7ISNbkqu5WaWdAAPsha1iUHwXr+eGoowDhJqz40G/UhfAcGRQQ9BG2IgtbTr03R+LDfFmaV34LnbD/DdZXIjEFI0r4yKiTJ+Bok5yd/oCd3ikIWGi+8ZPFf/yUiGDqkE/BkQpISqWaBXEoju7U/kwa+9KRqwqtf4Zc8RIdhq4kwbLuFHH2A2RALvcA0LJGswvmQn0TfhRdpxQAHMGd7Dx+eubO0y4JmiRf8oo5m6ZBDLtGu/iSV26+KepPazySe6BeO7/4KDNVFBqydMQ==</SignatureValue>
+</Signature>

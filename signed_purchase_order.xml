@@ -1,0 +1,17 @@
+<PurchaseOrder>
+  <Item number="130046593231">
+    <Description>Video Game</Description>
+    <Price>10.29</Price>
+  </Item>
+  <Buyer id="8492340">
+    <Name>My Name</Name>
+    <Address>
+      <Street>One Network Drive</Street>
+      <Town>Burlington</Town>
+      <State>MA</State>
+      <Country>United States</Country>
+      <PostalCode>01803</PostalCode>
+    </Address>
+  </Buyer>
+  <Signature>4f79554308bdb4256d4b92d83e97d3ed687f199e50994cfa3769bac0073f688f982cecbae62ea36b714f5c670a02fa9dca279d4d04b9c08a04d70f283da8c3eb5388932583b3a2a4b95af728b45cad14984b451ec5365e4e2f49b374093e57df1a6265ee8f21f2b54cabbfbe9cbfaecd08b149254de1b3bae9f412ea394a77e6225910646270fe480a006367709bc7102e3346fc422b243b1cd89a9741b1547f79177d8276922ef2e622d4dce4c8156cc68bf904e4f2f771e81621fa4c1a627ca15d6057e2d04884014348ecdd97f8520b7665307091ae764d225b90e6ee11fb07f0e7b7437b73e96292bf085532e44895d8c15baacb56ca835c4fc07d065de0</Signature>
+</PurchaseOrder>
