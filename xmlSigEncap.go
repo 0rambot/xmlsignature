@@ -11,34 +11,34 @@ import (
 	"os"
 )
 
-//// PurchaseOrder 结构体，用于解析和生成 XML
-//type PurchaseOrder struct {
-//	XMLName xml.Name `xml:"PurchaseOrder"`
-//	Item    Item     `xml:"Item"`
-//	Buyer   Buyer    `xml:"Buyer"`
-//	// 添加签名字段
-//	Signature string `xml:"Signature"`
-//}
-//
-//type Item struct {
-//	Number      string  `xml:"number,attr"`
-//	Description string  `xml:"Description"`
-//	Price       float64 `xml:"Price"`
-//}
-//
-//type Buyer struct {
-//	ID      string  `xml:"id,attr"`
-//	Name    string  `xml:"Name"`
-//	Address Address `xml:"Address"`
-//}
-//
-//type Address struct {
-//	Street     string `xml:"Street"`
-//	Town       string `xml:"Town"`
-//	State      string `xml:"State"`
-//	Country    string `xml:"Country"`
-//	PostalCode string `xml:"PostalCode"`
-//}
+// PurchaseOrder 结构体，用于解析和生成 XML
+type PurchaseOrder struct {
+	XMLName xml.Name `xml:"PurchaseOrder"`
+	Item    Item     `xml:"Item"`
+	Buyer   Buyer    `xml:"Buyer"`
+	// 添加签名字段
+	Signature string `xml:"Signature"`
+}
+
+type Item struct {
+	Number      string  `xml:"number,attr"`
+	Description string  `xml:"Description"`
+	Price       float64 `xml:"Price"`
+}
+
+type Buyer struct {
+	ID      string  `xml:"id,attr"`
+	Name    string  `xml:"Name"`
+	Address Address `xml:"Address"`
+}
+
+type Address struct {
+	Street     string `xml:"Street"`
+	Town       string `xml:"Town"`
+	State      string `xml:"State"`
+	Country    string `xml:"Country"`
+	PostalCode string `xml:"PostalCode"`
+}
 
 func xmlSigEncap_test() {
 	// 创建 XML 数据
@@ -46,7 +46,7 @@ func xmlSigEncap_test() {
 		Item: Item{
 			Number:      "130046593231",
 			Description: "Video Game",
-			Price:       "10.29",
+			Price:       10.29,
 		},
 		Buyer: Buyer{
 			ID:   "8492340",

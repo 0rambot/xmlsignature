@@ -291,9 +291,82 @@ func (ctx *SigningContext) createNamespacedElement(el *etree.Element, tag string
 }
 
 func (ctx *SigningContext) SignEnveloped(el *etree.Element) (*etree.Element, error) {
-	sig, err := ctx.ConstructSignature(el, true)
+	//sig, err := ctx.ConstructSignature(el, true)
+	//if err != nil {
+	//	return nil, err
+	//}
+
+	signedInfo, err := ctx.constructSignedInfo(el, true)
 	if err != nil {
 		return nil, err
+	}
+
+	sig := &etree.Element{
+		Tag:   SignatureTag,
+		Space: ctx.Prefix,
+	}
+
+	xmlns := "xmlns"
+	if ctx.Prefix != "" {
+		xmlns += ":" + ctx.Prefix
+	}
+
+	sig.CreateAttr(xmlns, Namespace)
+	sig.AddChild(signedInfo)
+
+	// When using xml-c14n11 (ie, non-exclusive canonicalization) the canonical form
+	// of the SignedInfo must declare all namespaces that are in scope at it's final
+	// enveloped location in the document. In order to do that, we're going to construct
+	// a series of cascading NSContexts to capture namespace declarations:
+
+	// First get the context surrounding the element we are signing.
+	rootNSCtx, err := etreeutils.NSBuildParentContext(el)
+	if err != nil {
+		return nil, err
+	}
+
+	// Then capture any declarations on the element itself.
+	elNSCtx, err := rootNSCtx.SubContext(el)
+	if err != nil {
+		return nil, err
+	}
+
+	// Followed by declarations on the Signature (which we just added above)
+	sigNSCtx, err := elNSCtx.SubContext(sig)
+	if err != nil {
+		return nil, err
+	}
+
+	// Finally detatch the SignedInfo in order to capture all of the namespace
+	// declarations in the scope we've constructed.
+	detatchedSignedInfo, err := etreeutils.NSDetatch(sigNSCtx, signedInfo)
+	if err != nil {
+		return nil, err
+	}
+
+	digest, err := ctx.digest(detatchedSignedInfo)
+	if err != nil {
+		return nil, err
+	}
+
+	rawSignature, err := ctx.signDigest(digest)
+	if err != nil {
+		return nil, err
+	}
+
+	certs, err := ctx.getCerts()
+	if err != nil {
+		return nil, err
+	}
+
+	signatureValue := ctx.createNamespacedElement(sig, SignatureValueTag)
+	signatureValue.SetText(base64.StdEncoding.EncodeToString(rawSignature))
+
+	keyInfo := ctx.createNamespacedElement(sig, KeyInfoTag)
+	x509Data := ctx.createNamespacedElement(keyInfo, X509DataTag)
+	for _, cert := range certs {
+		x509Certificate := ctx.createNamespacedElement(x509Data, X509CertificateTag)
+		x509Certificate.SetText(base64.StdEncoding.EncodeToString(cert))
 	}
 
 	ret := el.Copy()
